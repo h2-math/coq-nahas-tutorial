@@ -20,26 +20,26 @@ Proof.
   exact proof_of_A.
 Qed.
 
-(** ** Dissection of your first proof *)
-(**
+(** ** "Dissection of your first proof" 
 
-Theorem theorm_name : statement_to_prove.
-Proof.
+"Theorem" theorm_name ":" statement_to_prove"."
+"Proof."
   actual_proof.
   ...
   actual_proof.
-Qed.
+"Qed."
 
-Proof.
-Lemma.
-Remark.
-Fact.
-Corollary.
-Proposition.
+* "Theorem" is a vernacular command that starts a proof.
+* "Proof" and following commands have the same meaning.
+  - Lemma.
+  - Remark.
+  - Fact.
+  - Corollary.
+  - Proposition.
 
-Qed.
-Admitted.
-Defined.
+* "Qed" and following commands have different meanings
+  - Admitted.
+  - Defined.
 
 You can see 3 different languages in this proof.
 
@@ -53,14 +53,12 @@ You can see 3 different languages in this proof.
       Its commands start with a lower-case letter:
       "intros" and "exact".
 
-  - The unnamed language of Coq terms
+  - The unnamed language of "Coq terms"
     * is used to express what you want to prove.
-    Its expressions use lots of operators and parentheses:
-    "(forall A : Prop, A -> A)".
-    (Technically, this language is a subset of
-    the vernacular language,
-    but it is useful to think of it as its own thing.)
-
+    * Its expressions use lots of operators and parentheses:
+    * "(forall A : Prop, A -> A)".
+    * (Technically, this language is a subset of the vernacular language,
+      * but it is useful to think of it as its own thing.)
 *)
 
 Theorem my_first_proof__again : (forall A : Prop, A -> A).
@@ -70,16 +68,11 @@ Proof.
   exact proof_of_A.
 Qed.
 
-(** ** Seeing where you are in a proof *)
 (**
+Let's see the different "states" inside your first proof.
 
-Let's see the different states inside your first proof.
-
-In Proof General:
-  Do "C-c C-Enter" (press control-c and then control-Enter)
-
-In a different part of the screen you should see something like:
-
+In Proof General: "C-c C-Enter"
+  * You should see something like:
 <<
   A : Prop
   proof_of_A : A
@@ -88,24 +81,23 @@ In a different part of the screen you should see something like:
 >>
 
 "Hypotheses" and "context"
-  - Everything above the bar is "hypotheses" which is what you know
-    to exist or have assumed to exist.
-    We refer to everything above the bar as "the context".
+  - Everything above the bar is "hypotheses" 
+    * which is what you know to exist or have assumed to exist.
+  - We refer to everything above the bar as "the context".
 
-"Current subgoal"
-  - Below the bar is what we are trying to prove. 
-
-"The goal"
-  - is the theorem we're trying to prove.
-    A "subgoal" is what we are trying to prove at any point
-    during the proof.
-    We say "current subgoal" because during a proof we may have
-    multiple things remaining to prove.
-    For example, during a proof by induction, we will have one
-    subgoal for the "base case" and another subgoal for
-    the "inductive case".
-    But we (usually) only work on one subgoal at a time and the
-    one we're working on is called "the current subgoal".
+The "goal" and "current subgoal"
+  - Below the bar is "what we are trying to prove". 
+  - The "Goal" 
+    * is the theorem we're trying to prove.
+  - A "subgoal" 
+    * is what we are trying to prove at any point during the proof.
+  - The "current subgoal" 
+    * During a proof we may have multiple things remaining to prove.
+    * We (usually) "only work on one subgoal at a time" and 
+      - the one we're working on is called "the current subgoal".
+    * For example, during a "proof by induction", 
+      - we will have one subgoal for the "base case" and 
+      - another subgoal for the "inductive case".
 *)
 
 Theorem my_first_proof__again__again : (forall A : Prop, A -> A).
@@ -115,36 +107,37 @@ Proof.
   exact proof_of_A.
 Qed.
 
-(** ** Your first Tactic! *)
+(** ** Your first "Tactic"! *)
 (**
-Our starting state is:
+Our "starting state" is:
 
 <<
 
   ============================
    forall A : Prop, A -> A
 >>
+*)
 
-"intros" tactic"
-  - Our goal (and current subgoal) starts with "forall A : Prop,...".
-    In English, this would be "For all A such that A is a Prop, ...".
-    One way to prove a statement like "For all x such that x is an integer, ..."
-    is to assume we have an arbitrary integer x and show
-    that the rest of the statement holds for x.
-    The first tactic "intros" does exactly that.
+(** "intros" tactic
+  - Our goal (and "current subgoal") starts with "forall A : Prop,...".
+    * In English, this would be "For all A such that A is a Prop, ...".
+  - One way to prove a statement like "For all x such that x is an integer, ..." is 
+    * to "assume" we have an "arbitrary integer x" and 
+    * show that "the rest of the statement holds for x".
+  - The first tactic "intros" does exactly that.
 
 Thus, every time I see "intros A.", I think "assume A".
 
 The tactic "intros"
-  - takes "forall" off the front of the subgoal,
-  - changes its variable into a hypothesis in the context, and
-  - names the hypothesis.
-
-  - Recall, the context holds all things we've proven or,
-    as in this case, assumed to be proven.
-  - We named the new hypothesis "A", which is the same as
-    the name of the variable removed from the subgoal.
-  - You should always keep the same name, if possible.
+  - "takes forall off" the front of the "subgoal",
+  - "changes its variable" into "a hypothesis in the context", and
+  - "names the hypothesis".
+  - The "context" 
+    * holds all things we've proven or,
+    * as in this case, assumed to be proven.
+  - We named the "new hypothesis A", 
+    * which is the same as the name of the variable removed from the subgoal.
+    * You should always "keep the same name", if possible.
 
 _RULE_: If the subgoal starts with "(forall <name> : <type>, ..."
      Then use tactic "intros <name>.".
@@ -157,23 +150,27 @@ The state after "intros A." is:
    A -> A
 >>
 
-In Coq, "A : Prop" means you have something named "A" of type "Prop".
-In the future you will see "0 : nat" which means "0" of type "nat"
-(natural numbers) and you will see "true : bool" which means "true" of
-type "bool" (boolean or true-false values).  In some places, you will
-see "A B C : Prop", which means "A", "B", and "C" all have type
-"Prop".
+"A : Prop" 
+  * you have something named "A" of type "Prop".
+  * "0 : nat" 
+    * "0" of type "nat" (natural numbers) 
+  * "true : bool" 
+    * "true" of type "bool" (boolean or true-false values).  
+"A B C : Prop", 
+  * "A", "B", and "C" all have type "Prop".
 
-The type "Prop" is easier to explain after we've executed the next
-command.  The next tactic is "intros", which we said works when
-"forall" is at the front of the subgoal.
+The type "Prop" 
+  * is easier to explain after we've executed the next command.  
 
-It works here because "->" is actually shorthand for "forall".
-"B -> C" really means "(forall something_of_type_B : B, C)".
-So, "A->A" is "(forall something_of_type_A : A, A)".
+The next "intros", 
+  * It works here because "->" is actually shorthand for "forall".
+    * "B -> C" 
+      * really means "(forall something_of_type_B : B, C)".
+      * So, "A->A" is "(forall something_of_type_A : A, A)".
 
-The result is that "intros proof_of_A." removes that hidden "forall"
-and moves the unnamed variable of type A to the hypothesis named "proof_of_A".
+The result is that "intros proof_of_A." 
+  * removes that hidden "forall"
+  * moves the unnamed variable of type A to the hypothesis named "proof_of_A".
 
 _RULE_: If the subgoal starts with "<type> -> ..."
      Then use tactic "intros <name>.".
@@ -187,38 +184,50 @@ The state after the second "intros" command, looks like:
    A
 >>
 
-Now, we can talk about "Prop".  "proof_of_A" is a proof.  It has type
-"A", which means that "A" is something that could have a proof.  In
-logic, that is called a "proposition".  Since the proposition "A" has
-type "Prop", "Prop" must be the type of propositions.
+Now, we can talk about "Prop".  
+  * "proof_of_A" is a proof.  
+    * It has type "A", 
+      * which means that "A" is something that could have a proof.  
+    * In logic, that is called a "proposition".  
+  * Since the "proposition A" has type "Prop", 
+    * "Prop" must be the "type of propositions".
 
-Prop is an important concept, so let's see some propositions:
+"Prop" is an important concept, so let's see some "propositions":
   - (forall x : nat, (x < 5) -> (x < 6))
   - (forall x y : nat, x + y = y + x)
   - (forall A : Prop, A -> A)
 
-All of these have type "Prop".  They can all have proofs.  That last
-Prop should look familiar - it's what we're trying to prove right now!
+All of these have type "Prop".  
+  * They can all have proofs.  
+  * That last Prop should look familiar 
+    * - it's what we're trying to prove right now!
 
-IT IS VITALLY IMPORTANT THAT YOU DO NOT THINK OF A Prop AS BEING
-EITHER "TRUE" OR "FALSE".
+IT IS VITALLY IMPORTANT THAT 
+  * YOU DO NOT THINK OF A "Prop" AS BEING EITHER "TRUE" OR "FALSE".
+  * A "Prop" 
+    * either "has a proof" or 
+    * it "does not have a proof".
 
-"A Prop either has a proof or it does not have a proof."
+"Godel" shattered mathematics by showing that 
+  * "some true propositions can never proven".
+"Tarski" went further and showed that 
+  * "some propositions cannot even be said to be true or false!!!"
 
-Godel shattered mathematics by showing that some true propositions can never proven.
-Tarski went further and showed that some propositions cannot even be said to be true or false!!!
-
-Coq deals with these obstacles in modern mathematics
-by restricting Prop to being either proven or unproven, rather than true or false.
+"Coq" deals with these obstacles in modern mathematics
+  * by restricting "Prop" to being either "proven" or "unproven", 
+  * rather than true or false.
 
 Now that I've got that across, let's go and finish our first proof.
-After the second "intros" tactic, our subgoal is "A", which means "we
-need something of type A" or, because A is a proposition, "we need a
-proof of A".  Now, the previous command moved a proof of A into the
-context and called it "proof_of_A".  So, an hypothesis in our context
-(which are all things we know to exist) has a type that matches our
-subgoal (which is what we want to create), so we have an exact match.
-The tactic "exact proof_of_A" solves the subgoal (and the proof).
+  1. After the second "intros" tactic, 
+  2. our subgoal is "A", 
+    * which means "we need something of type A" or, 
+    * because A is a proposition, "we need a proof of A".  
+  3. Now, the previous command moved a "proof of A" into the context and 
+    * called it "proof_of_A".  
+    * So, an "hypothesis" in our context (which are all things we know to exist) 
+     * has a "type" that matches our "subgoal" (which is what we want to create), 
+  4. so we have an exact match.
+    * The tactic "exact proof_of_A" solves the subgoal (and the proof).
 
 Ta-da!  Your first proof!
 
